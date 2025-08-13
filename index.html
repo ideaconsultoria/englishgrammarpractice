@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Grammar Practice</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .quiz-container {
+            background-color: #ffffff;
+            border-radius: 1.5rem; /* More rounded corners */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            padding: 2.5rem; /* Increased padding */
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        .question-text {
+            font-size: 1.625rem; /* Slightly larger text */
+            font-weight: 600;
+            margin-bottom: 2rem; /* More space below question */
+            color: #1a202c; /* Darker text for question */
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem; /* More space between buttons */
+            margin-bottom: 2rem;
+        }
+        .option-button {
+            background-color: #e2e8f0; /* Light gray button */
+            color: #2d3748; /* Darker gray text */
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem; /* Rounded button corners */
+            font-size: 1.125rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+            width: 100%;
+            text-align: left; /* Align text to left */
+        }
+        .option-button:hover {
+            background-color: #cbd5e0; /* Slightly darker on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .option-button.correct {
+            background-color: #d1fae5; /* Light green for correct */
+            border-color: #34d399; /* Green border */
+            color: #065f46; /* Dark green text */
+        }
+        .option-button.incorrect {
+            background-color: #fee2e2; /* Light red for incorrect */
+            border-color: #ef4444; /* Red border */
+            color: #991b1b; /* Dark red text */
+        }
+        .feedback-message {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .score-display {
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: #4a5568; /* Gray for score */
+            margin-bottom: 1.5rem;
+        }
+        .control-button {
+            background-color: #4299e1; /* Blue button */
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            border: none;
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .control-button:hover {
+            background-color: #3182ce; /* Darker blue on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .control-button:disabled {
+            background-color: #a0aec0; /* Gray when disabled */
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 640px) {
+            .options-grid {
+                grid-template-columns: 1fr 1fr; /* Two columns on larger screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">English Grammar Practice</h1>
+
+        <div id="question-area">
+            <p id="question-text" class="question-text"></p>
+            <div id="options-container" class="options-grid">
+                <!-- Options buttons will be dynamically inserted here -->
+            </div>
+            <p id="feedback-message" class="feedback-message"></p>
+        </div>
+
+        <p id="score-display" class="score-display">Score: 0 / 0</p>
+        <button id="next-button" class="control-button">Next Question</button>
+        <button id="try-again-button" class="control-button mt-4 hidden">Try Again</button>
+    </div>
+
+    <script>
+        // Array of grammar questions
+        const questions = [
+            // --- Plural Nouns (10) ---
+            {
+                question: "There are many ____ playing in the park.",
+                options: ["childs", "children", "childen", "child"],
+                correctAnswer: "children",
+                type: "plural"
+            },
+            {
+                question: "The farmer has many ____ in his field.",
+                options: ["sheeps", "sheep", "sheap", "shiep"],
+                correctAnswer: "sheep",
+                type: "plural"
+            },
+            {
+                question: "I saw several ____ running in the kitchen.",
+                options: ["mouse", "mouses", "mice", "meese"],
+                correctAnswer: "mice",
+                type: "plural"
+            },
+            {
+                question: "My brother has two ____ missing from his front teeth.",
+                options: ["tooths", "teeth", "toothes", "teth"],
+                correctAnswer: "teeth",
+                type: "plural"
+            },
+            {
+                question: "The chef used sharp ____ to chop the vegetables.",
+                options: ["knifes", "knifes", "knives", "knife"],
+                correctAnswer: "knives",
+                type: "plural"
+            },
+            {
+                question: "In autumn, the ____ change color and fall from the trees.",
+                options: ["leafs", "leaves", "leafes", "leaf"],
+                correctAnswer: "leaves",
+                type: "plural"
+            },
+            {
+                question: "There are three ____ at the meeting today.",
+                options: ["mans", "men", "mens", "man"],
+                correctAnswer: "men",
+                type: "plural"
+            },
+            {
+                question: "The zoo has many exotic ____ in its large aquariums.",
+                options: ["fishes", "fish", "phis", "pheesh"],
+                correctAnswer: "fish",
+                type: "plural"
+            },
+            {
+                question: "She needed new ____ for her winter boots.",
+                options: ["foots", "feet", "feetts", "foot"],
+                correctAnswer: "feet",
+                type: "plural"
+            },
+            {
+                question: "The library contains thousands of ____ of literature.",
+                options: ["books", "book", "bokes", "book's"],
+                correctAnswer: "books",
+                type: "plural"
+            },
+
+            // --- Possessive Determiners & Objects (20) ---
+            {
+                question: "This is ____ car. It's brand new!",
+                options: ["my", "mine", "I"],
+                correctAnswer: "my",
+                type: "possessive"
+            },
+            {
+                question: "The red car over there is ____.",
+                options: ["my", "mine", "I"],
+                correctAnswer: "mine",
+                type: "possessive"
+            },
+            {
+                question: "Is this ____ pen?",
+                options: ["your", "yours", "you"],
+                correctAnswer: "your",
+                type: "possessive"
+            },
+            {
+                question: "That umbrella is ____, isn't it?",
+                options: ["your", "yours", "you"],
+                correctAnswer: "yours",
+                type: "possessive"
+            },
+            {
+                question: "He shared ____ lunch with us.",
+                options: ["he", "him", "his"],
+                correctAnswer: "his",
+                type: "possessive"
+            },
+            {
+                question: "That's not ____. It belongs to John.",
+                options: ["he", "him", "his"],
+                correctAnswer: "his",
+                type: "possessive" // His can be both determiner and pronoun
+            },
+            {
+                question: "She showed me ____ new dress.",
+                options: ["she", "her", "hers"],
+                correctAnswer: "her",
+                type: "possessive"
+            },
+            {
+                question: "The dog wagged ____ tail excitedly.",
+                options: ["it's", "its", "it"],
+                correctAnswer: "its",
+                type: "possessive"
+            },
+            {
+                question: "The decision is ____ alone.",
+                options: ["her", "hers", "she"],
+                correctAnswer: "hers",
+                type: "possessive"
+            },
+            {
+                question: "They invited ____ friends to the party.",
+                options: ["they", "their", "theirs"],
+                correctAnswer: "their",
+                type: "possessive"
+            },
+            {
+                question: "The house with the blue door is ____.",
+                options: ["their", "theirs", "they"],
+                correctAnswer: "theirs",
+                type: "possessive"
+            },
+            {
+                question: "We finished ____ project on time.",
+                options: ["we", "our", "ours"],
+                correctAnswer: "our",
+                type: "possessive"
+            },
+            {
+                question: "This victory is ____!",
+                options: ["our", "ours", "us"],
+                correctAnswer: "ours",
+                type: "possessive"
+            },
+            {
+                question: "Please give the book to ____.",
+                options: ["he", "him", "his"],
+                correctAnswer: "him",
+                type: "possessive" // This focuses on object pronoun usage.
+            },
+            {
+                question: "Can you help ____ with this heavy box?",
+                options: ["I", "me", "my"],
+                correctAnswer: "me",
+                type: "possessive" // Object pronoun
+            },
+            {
+                question: "The teacher gave ____ a lot of homework.",
+                options: ["we", "us", "our"],
+                correctAnswer: "us",
+                type: "possessive" // Object pronoun
+            },
+            {
+                question: "She waved goodbye to ____.",
+                options: ["they", "them", "their"],
+                correctAnswer: "them",
+                type: "possessive" // Object pronoun
+            },
+            {
+                question: "I saw ____ at the mall yesterday.",
+                options: ["she", "her", "hers"],
+                correctAnswer: "her",
+                type: "possessive" // Object pronoun
+            },
+            {
+                question: "He introduced ____ to his family.",
+                options: ["I", "me", "my"],
+                correctAnswer: "me",
+                type: "possessive" // Object pronoun
+            },
+            {
+                question: "The present is for ____.",
+                options: ["they", "them", "their"],
+                correctAnswer: "them",
+                type: "possessive" // Object pronoun
+            },
+
+            // --- Very and Strong Adjectives (15) ---
+            {
+                question: "The movie was ____. I really enjoyed it!",
+                options: ["very good", "bad", "amazing", "okay"],
+                correctAnswer: "amazing",
+                type: "adjective"
+            },
+            {
+                question: "The old car was moving ____ down the road.",
+                options: ["painfully slow", "very fast", "quick"],
+                correctAnswer: "painfully slow",
+                type: "adjective"
+            },
+            {
+                question: "After running a marathon, I felt ____.",
+                options: ["tired", "super tired", "energetic"],
+                correctAnswer: "super tired",
+                type: "adjective"
+            },
+            {
+                question: "I was ____ after not eating all day.",
+                options: ["hungry", "starving", "full"],
+                correctAnswer: "starving",
+                type: "adjective"
+            },
+            {
+                question: "She was ____ when she won the lottery.",
+                options: ["happy", "thrilled", "sad"],
+                correctAnswer: "thrilled",
+                type: "adjective"
+            },
+            {
+                question: "The news was ____; everyone was shocked.",
+                options: ["bad", "awful", "good"],
+                correctAnswer: "awful",
+                type: "adjective"
+            },
+            {
+                question: "It was ____ outside, so we stayed indoors.",
+                options: ["cold", "freezing", "warm"],
+                correctAnswer: "freezing",
+                type: "adjective"
+            },
+            {
+                question: "In July, the weather can be ____ here.",
+                options: ["hot", "boiling", "cool"],
+                correctAnswer: "boiling",
+                type: "adjective"
+            },
+            {
+                question: "The new sports car is ____.",
+                options: ["fast", "super fast", "slow"],
+                correctAnswer: "super fast",
+                type: "adjective"
+            },
+            {
+                question: "I'm ____ after a long day of work.",
+                options: ["really tired", "very tired", "not tired"],
+                correctAnswer: "really tired",
+                type: "adjective"
+            },
+            {
+                question: "This is an ____ decision for our future.",
+                options: ["important", "extremely important", "unimportant"],
+                correctAnswer: "extremely important",
+                type: "adjective"
+            },
+            {
+                question: "The new bullet train is ____.",
+                options: ["fast", "incredibly fast", "slow"],
+                correctAnswer: "incredibly fast",
+                type: "adjective"
+            },
+            {
+                question: "I was ____ by the time dinner was ready.",
+                options: ["hungry", "so hungry", "full"],
+                correctAnswer: "so hungry",
+                type: "adjective"
+            },
+            {
+                question: "Don't touch the stove, it's ____.",
+                options: ["hot", "too hot", "warm"],
+                correctAnswer: "too hot",
+                type: "adjective"
+            },
+            {
+                question: "The weather was ____ for a walk in the park.",
+                options: ["nice", "quite nice", "awful"],
+                correctAnswer: "quite nice",
+                type: "adjective"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answeredCorrectly = false; // Flag to prevent multiple clicks on options for the same question
+
+        const questionTextElement = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackMessageElement = document.getElementById('feedback-message');
+        const scoreDisplayElement = document.getElementById('score-display');
+        const nextButton = document.getElementById('next-button');
+        const tryAgainButton = document.getElementById('try-again-button');
+
+        // Function to shuffle an array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+            }
+        }
+
+        // Shuffle questions initially
+        shuffleArray(questions);
+
+        function displayQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const question = questions[currentQuestionIndex];
+                questionTextElement.textContent = question.question;
+                optionsContainer.innerHTML = ''; // Clear previous options
+                feedbackMessageElement.textContent = ''; // Clear feedback
+                answeredCorrectly = false; // Reset flag for new question
+                nextButton.style.display = 'none'; // Hide next button
+                tryAgainButton.style.display = 'none'; // Hide try again button
+
+                // Shuffle options for the current question
+                const shuffledOptions = [...question.options];
+                shuffleArray(shuffledOptions);
+
+                shuffledOptions.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option;
+                    button.classList.add('option-button');
+                    button.addEventListener('click', () => checkAnswer(option, button));
+                    optionsContainer.appendChild(button);
+                });
+            } else {
+                // End of quiz
+                questionTextElement.textContent = "Quiz Completed!";
+                optionsContainer.innerHTML = '';
+                feedbackMessageElement.textContent = `You scored ${score} out of ${questions.length} questions!`;
+                nextButton.textContent = "Restart Quiz";
+                nextButton.style.display = 'block';
+                tryAgainButton.style.display = 'none';
+            }
+            updateScoreDisplay();
+        }
+
+        function checkAnswer(selectedOption, button) {
+            if (answeredCorrectly) return; // Prevent multiple checks
+
+            const question = questions[currentQuestionIndex];
+            const allOptionButtons = optionsContainer.querySelectorAll('.option-button');
+
+            if (selectedOption === question.correctAnswer) {
+                button.classList.add('correct');
+                feedbackMessageElement.textContent = "Correct! 🎉";
+                score++;
+                answeredCorrectly = true;
+                nextButton.style.display = 'block'; // Show next button
+                tryAgainButton.style.display = 'none'; // Ensure try again is hidden
+
+                // Disable all options after a correct answer
+                allOptionButtons.forEach(btn => btn.disabled = true);
+            } else {
+                button.classList.add('incorrect');
+                feedbackMessageElement.textContent = "Incorrect. Try again!";
+                tryAgainButton.style.display = 'block'; // Show try again button
+                nextButton.style.display = 'none'; // Hide next button
+
+                // Highlight the correct answer
+                allOptionButtons.forEach(btn => {
+                    if (btn.textContent === question.correctAnswer) {
+                        btn.classList.add('correct');
+                    }
+                    btn.disabled = true; // Disable all options after an incorrect attempt
+                });
+            }
+            updateScoreDisplay();
+        }
+
+        function updateScoreDisplay() {
+            scoreDisplayElement.textContent = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                currentQuestionIndex++;
+                displayQuestion();
+            } else {
+                // If quiz completed and "Restart Quiz" is clicked
+                currentQuestionIndex = 0;
+                score = 0;
+                shuffleArray(questions); // Reshuffle for new quiz
+                nextButton.textContent = "Next Question"; // Reset button text
+                displayQuestion();
+            }
+        }
+
+        function tryAgain() {
+            // Reset feedback and button states for retry
+            feedbackMessageElement.textContent = '';
+            tryAgainButton.style.display = 'none';
+            nextButton.style.display = 'none'; // Keep next button hidden until correct answer
+
+            // Remove highlight classes and re-enable buttons
+            const allOptionButtons = optionsContainer.querySelectorAll('.option-button');
+            allOptionButtons.forEach(btn => {
+                btn.classList.remove('correct', 'incorrect');
+                btn.disabled = false; // Re-enable all buttons for retry
+            });
+        }
+
+        // Event listeners for control buttons
+        nextButton.addEventListener('click', nextQuestion);
+        tryAgainButton.addEventListener('click', tryAgain);
+
+        // Initial display of the first question
+        displayQuestion();
+    </script>
+</body>
+</html>
