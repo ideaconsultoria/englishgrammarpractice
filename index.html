@@ -132,7 +132,7 @@
     <script>
         // Array of grammar questions
         const questions = [
-            // --- Plural Nouns (10) ---
+            // --- Plural Nouns (Original 10) ---
             {
                 question: "There are many ____ playing in the park.",
                 options: ["childs", "children", "childen", "child"],
@@ -194,7 +194,69 @@
                 type: "plural"
             },
 
-            // --- Possessive Determiners & Objects (20) ---
+            // --- Plural Nouns (New 10) ---
+            {
+                question: "The architect is designing many different ____ for the new housing complex.",
+                options: ["hous", "houses", "house's", "hause"],
+                correctAnswer: "houses",
+                type: "plural"
+            },
+            {
+                question: "Our apartment has two small ____ facing the park.",
+                options: ["balcony", "balconies", "balconys", "balconees"],
+                correctAnswer: "balconies",
+                type: "plural"
+            },
+            {
+                question: "The office manager is ordering new ____ for all the desks.",
+                options: ["chair", "chairs", "chaires", "chair's"],
+                correctAnswer: "chairs",
+                type: "plural"
+            },
+            {
+                question: "The company hires many new ____ every year.",
+                options: ["employee", "employees", "employe", "employes"],
+                correctAnswer: "employees",
+                type: "plural"
+            },
+            {
+                question: "The old building has several empty ____ on the ground floor.",
+                options: ["store", "stores", "stor", "stors"],
+                correctAnswer: "stores",
+                type: "plural"
+            },
+            {
+                question: "In the apartment, you can see beautiful ____ hanging on the walls.",
+                options: ["picture", "pictures", "pictur", "picters"],
+                correctAnswer: "pictures",
+                type: "plural"
+            },
+            {
+                question: "The cleaning staff always wipe down all the ____ in the meeting rooms.",
+                options: ["table", "tables", "tabls", "tabless"],
+                correctAnswer: "tables",
+                type: "plural"
+            },
+            {
+                question: "The company is launching new ____ next quarter.",
+                options: ["product", "products", "produts", "prodact"],
+                correctAnswer: "products",
+                type: "plural"
+            },
+            {
+                question: "The house has unique ____ that add character.",
+                options: ["feature", "features", "featcher", "featuress"],
+                correctAnswer: "features",
+                type: "plural"
+            },
+            {
+                question: "The apartment building has several shared ____ for residents.",
+                options: ["area", "areas", "area's", "arees"],
+                correctAnswer: "areas",
+                type: "plural"
+            },
+
+            // --- Possessive Determiners & Objects (Original 20) ---
             {
                 question: "This is ____ car. It's brand new!",
                 options: ["my", "mine", "I"],
@@ -316,7 +378,69 @@
                 type: "possessive" // Object pronoun
             },
 
-            // --- Very and Strong Adjectives (15) ---
+            // --- Possessive Determiners & Objects (New 10) ---
+            {
+                question: "This lovely house is ____, we bought it last month.",
+                options: ["our", "ours", "us"],
+                correctAnswer: "ours",
+                type: "possessive"
+            },
+            {
+                question: "The apartment is on the top floor, and ____ balcony is huge.",
+                options: ["it's", "its", "it"],
+                correctAnswer: "its",
+                type: "possessive"
+            },
+            {
+                question: "Is this ____ office, Mr. Smith?",
+                options: ["your", "yours", "you"],
+                correctAnswer: "your",
+                type: "possessive"
+            },
+            {
+                question: "The company values ____ employees' opinions greatly.",
+                options: ["it's", "its", "it"],
+                correctAnswer: "its",
+                type: "possessive"
+            },
+            {
+                question: "They are selling ____ old house next month.",
+                options: ["they", "their", "theirs"],
+                correctAnswer: "their",
+                type: "possessive"
+            },
+            {
+                question: "Excuse me, are these keys ____?",
+                options: ["your", "yours", "you"],
+                correctAnswer: "yours",
+                type: "possessive"
+            },
+            {
+                question: "The real estate agent is showing ____ around the new apartment.",
+                options: ["we", "us", "our"],
+                correctAnswer: "us",
+                type: "possessive"
+            },
+            {
+                question: "The manager is presenting ____ new strategy to the team.",
+                options: ["he", "him", "his"],
+                correctAnswer: "his",
+                type: "possessive"
+            },
+            {
+                question: "The beautiful garden is ____; we spend hours there.",
+                options: ["our", "ours", "us"],
+                correctAnswer: "ours",
+                type: "possessive"
+            },
+            {
+                question: "She is decorating ____ new apartment with modern furniture.",
+                options: ["she", "her", "hers"],
+                correctAnswer: "her",
+                type: "possessive"
+            },
+
+            // --- Very and Strong Adjectives (Original 15) ---
             {
                 question: "The movie was ____. I really enjoyed it!",
                 options: ["very good", "bad", "amazing", "okay"],
@@ -405,6 +529,68 @@
                 question: "The weather was ____ for a walk in the park.",
                 options: ["nice", "quite nice", "awful"],
                 correctAnswer: "quite nice",
+                type: "adjective"
+            },
+
+            // --- Very and Strong Adjectives (New 10) ---
+            {
+                question: "The old abandoned house looks ____ at night.",
+                options: ["scary", "terrifying", "a little scary"],
+                correctAnswer: "terrifying",
+                type: "adjective"
+            },
+            {
+                question: "This apartment is so ____; I need to clean it up.",
+                options: ["messy", "so messy", "tidy"],
+                correctAnswer: "so messy",
+                type: "adjective"
+            },
+            {
+                question: "The new office design is absolutely ____; everyone loves it.",
+                options: ["good", "amazing", "okay"],
+                correctAnswer: "amazing",
+                type: "adjective"
+            },
+            {
+                question: "The company's financial results this quarter are ____.",
+                options: ["bad", "terrible", "average"],
+                correctAnswer: "terrible",
+                type: "adjective"
+            },
+            {
+                question: "After the professional cleaning, the house is ____.",
+                options: ["clean", "spotless", "dirty"],
+                correctAnswer: "spotless",
+                type: "adjective"
+            },
+            {
+                question: "Renting an apartment in this city is ____ expensive.",
+                options: ["expensive", "extremely expensive", "cheap"],
+                correctAnswer: "extremely expensive",
+                type: "adjective"
+            },
+            {
+                question: "Developing this new software for the company is ____ work.",
+                options: ["tiring", "exhausting", "relaxing"],
+                correctAnswer: "exhausting",
+                type: "adjective"
+            },
+            {
+                question: "The team is ____ when their project is approved.",
+                options: ["happy", "thrilled", "sad"],
+                correctAnswer: "thrilled",
+                type: "adjective"
+            },
+            {
+                question: "During the winter, the old office building gets ____.",
+                options: ["cold", "freezing", "warm"],
+                correctAnswer: "freezing",
+                type: "adjective"
+            },
+            {
+                question: "The construction of the new apartment complex is ____.",
+                options: ["slow", "painfully slow", "fast"],
+                correctAnswer: "painfully slow",
                 type: "adjective"
             }
         ];
